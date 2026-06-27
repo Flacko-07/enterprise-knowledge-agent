@@ -158,6 +158,18 @@ We built a deterministic evaluation framework (`run_evaluation.py`) to measure p
 
 ---
 
+## 🔮 Future Improvements
+
+While the current system is robust and fully functional, the following improvements would be required to scale it to a production enterprise environment:
+
+- **Persistent Conversation Store**: Move the in-memory conversation dictionary to Redis or Postgres so that user history survives backend restarts and can scale across multiple backend instances.
+- **Authentication & RBAC**: Implement JWT-based authentication and Role-Based Access Control (e.g., HR can only query HR documents) to secure the API and ensure document compliance.
+- **Streaming Responses**: Implement Server-Sent Events (SSE) to stream the agent's final answer token-by-token to the frontend, significantly improving perceived latency.
+- **Distributed Vector Database**: Migrate from local ChromaDB to a managed, scalable vector database like Pinecone, Weaviate, or Supabase pgvector for high-availability and larger document corpora.
+- **Multi-modal Parsing**: Integrate OCR and vision models (e.g., Llama 3.2 Vision) to extract information from tables, charts, and images currently ignored by standard PDF text extractors.
+
+---
+
 ## 🚀 Deployment Strategy
 
 While this application is designed to run fully locally for privacy, it can be deployed to the cloud for organization-wide access. Because local LLMs require significant compute, the deployment strategy differs from standard web apps.
