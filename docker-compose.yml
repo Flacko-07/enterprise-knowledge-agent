@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  # ── Ollama LLM Server ───────────────────────────────
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    # Uncomment for GPU support (NVIDIA):
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: all
+    #           capabilities: [gpu]
+
+  # ── Ollama Model Puller (runs once) ─────────────────
+  ollama-pull:
+    image: ollama/ollama:latest
+    depends_on:
+      - ollama
+    entrypoint: >
+      sh -c "
+        sleep 5 &&
+        ollama pull llama3.2 &&
+        ollama pull nomic-embed-text
+      "
+    environment:
+      - OLLAMA_HOST=http://ollama:11434
+
+  # ── Backend API ──────────────────────────────────────
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/data:/app/data
+      - ./backend/vector_db:/app/vector_db
+      - ./backend/models:/app/models
+    environment:
+      - OLLAMA_BASE_URL=http://ollama:11434
+    env_file:
+      - ./backend/.env
+    depends_on:
+      - ollama
+    healthcheck:
+      test: ["CMD", "python", "-c", "import httpx; httpx.get('http://localhost:8000/')"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+
+  # ── Frontend ─────────────────────────────────────────
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+    depends_on:
+      backend:
+        condition: service_healthy
+
+volumes:
+  ollama_data:

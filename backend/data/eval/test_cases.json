@@ -1,0 +1,54 @@
+[
+  {
+    "id": 1,
+    "category": "factual",
+    "question": "What is the employee leave policy?",
+    "expected_keywords": ["24", "paid", "leaves", "casual", "sick"],
+    "expected_sources": ["hr_policy.pdf"]
+  },
+  {
+    "id": 2,
+    "category": "factual",
+    "question": "How do I request a refund?",
+    "expected_keywords": ["30 days", "refund", "support"],
+    "expected_sources": ["customer_faq.pdf"]
+  },
+  {
+    "id": 3,
+    "category": "factual",
+    "question": "What are the minimum system requirements?",
+    "expected_keywords": ["8 gb", "ram", "operating system"],
+    "expected_sources": ["product_docs.pdf"]
+  },
+  {
+    "id": 4,
+    "category": "multi_hop",
+    "question": "What is the deployment process and what are the deployment windows?",
+    "expected_keywords": ["argo", "feature branch", "tuesday", "thursday"],
+    "expected_sources": ["tech_guide.pdf"]
+  },
+  {
+    "id": 5,
+    "category": "ambiguous",
+    "question": "What is the policy?",
+    "expected_keywords": [],
+    "expected_sources": [],
+    "expected_behavior": "clarify"
+  },
+  {
+    "id": 6,
+    "category": "out_of_scope",
+    "question": "Who won the soccer world cup in 2022?",
+    "expected_keywords": [],
+    "expected_sources": [],
+    "expected_behavior": "no_hallucination"
+  },
+  {
+    "id": 7,
+    "category": "chitchat",
+    "question": "Hello, how are you?",
+    "expected_keywords": ["help", "assist", "hello"],
+    "expected_sources": [],
+    "expected_behavior": "conversational"
+  }
+]

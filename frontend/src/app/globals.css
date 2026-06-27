@@ -1,0 +1,145 @@
+/* Add these to your existing globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  /* Backgrounds */
+  --bg-main: #0a0a0a;
+  --bg-surface: #0f0f0f;
+  --bg-card: #1a1a1a;
+  --bg-card-hover: #222222;
+  --bg-input: #111111;
+  
+  /* Text */
+  --text-primary: #ffffff;
+  --text-secondary: #d1d5db;
+  --text-tertiary: #9ca3af;
+  
+  /* Accents */
+  --accent-primary: #6366f1;
+  --accent-secondary: #a855f7;
+  --accent-tertiary: #06b6d4;
+  
+  /* Borders */
+  --border-subtle: rgba(255, 255, 255, 0.05);
+  --border-medium: rgba(255, 255, 255, 0.1);
+  --border-strong: rgba(255, 255, 255, 0.2);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Pulse animations for background orbs */
+@keyframes pulse-slow {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.1); opacity: 0.9; }
+}
+@keyframes pulse-slow-delayed {
+  0%, 100% { transform: scale(1); opacity: 0.4; }
+  50% { transform: scale(1.15); opacity: 0.7; }
+}
+.animate-pulse-slow {
+  animation: pulse-slow 10s ease-in-out infinite;
+}
+.animate-pulse-slow-delayed {
+  animation: pulse-slow-delayed 12s ease-in-out infinite;
+}
+
+/* Typography for AI replies */
+.prose-ai {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+.prose-ai p {
+  margin-bottom: 1rem;
+}
+.prose-ai p:last-child {
+  margin-bottom: 0;
+}
+.prose-ai ul, .prose-ai ol {
+  margin-left: 1.25rem;
+  margin-bottom: 1rem;
+}
+.prose-ai li {
+  margin-bottom: 0.5rem;
+}
+.prose-ai strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+.prose-ai a {
+  color: var(--accent-primary);
+  text-decoration: underline;
+}
+.prose-ai code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  background: rgba(255,255,255,0.05);
+  padding: 0.1rem 0.3rem;
+  border-radius: 4px;
+}
+
+/* Gradient text utility */
+.gradient-text {
+  background: linear-gradient(135deg, #6366f1, #a855f7, #06b6d4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Smooth transitions for all interactive elements */
+* {
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  transition-duration: 300ms;
+}
